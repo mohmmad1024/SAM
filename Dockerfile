@@ -19,4 +19,4 @@ WORKDIR ${BASE_DIR}
 ADD . ${BASE_DIR}/scripts/
 
 # Apply configuration and start NiFi
-CMD ${BASE_DIR}/bin/streamline-server-start.sh -deamon ${BASE_DIR}/conf/streamline.yaml
+CMD ${BASE_DIR}/bin/streamline-server-start.sh ${BASE_DIR}/conf/streamline.yaml
