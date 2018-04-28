@@ -1,0 +1,19 @@
+version: '2'
+
+services:
+  db:
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: hortonworks
+      MYSQL_USER: hortonworks
+      MYSQL_PASSWORD: password
+  sam:
+    image: sam
+    depends_on:
+      - db
+    ports:
+      - "8080:8088"
+    environment:
+      HTTP_PORT: 8088
+      ADMIN_HTTP_PORT: 8081

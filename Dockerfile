@@ -6,7 +6,6 @@ ARG DOWNLOAD_URL=https://github.com/hortonworks/streamline/releases/download/v0.
 
 ENV BASE_DIR /sam 
 
-# Setup NiFi user
 RUN mkdir -p ${BASE_DIR} && cd ${BASE_DIR}\
     && curl -fSL ${DOWNLOAD_URL} -o sam.tar.gz \
     && tar -xvzf ${BASE_DIR}/sam.tar.gz -C ${BASE_DIR} --strip-components=1 \
@@ -16,7 +15,8 @@ EXPOSE 8080 8081
 
 WORKDIR ${BASE_DIR}
 
-ADD . ${BASE_DIR}/scripts/
+ADD yq_linux_386 /usr/bin/yq
+ADD moh_docker_start.sh ${BASE_DIR}/scripts/
+RUN chmod +x /usr/bin/yq && chmod +x ${BASE_DIR}/scripts/moh_docker_start.sh
 
-# Apply configuration and start NiFi
-CMD ${BASE_DIR}/bin/streamline-server-start.sh ${BASE_DIR}/conf/streamline-dev.yaml
+CMD ${BASE_DIR}/scripts/moh_docker_start.sh
