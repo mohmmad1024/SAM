@@ -14,9 +14,10 @@ RUN mkdir -p ${BASE_DIR} && cd ${BASE_DIR}\
 EXPOSE 8080 8081
 
 WORKDIR ${BASE_DIR}
-
+ADD mysql-connector-java-5.1.46.jar ${BASE_DIR}/libs/
+ADD mysql-connector-java-5.1.46.jar ${BASE_DIR}/bootstrap/lib/
 ADD yq_linux_386 /usr/bin/yq
-ADD moh_docker_start.sh ${BASE_DIR}/scripts/
-RUN chmod +x /usr/bin/yq && chmod +x ${BASE_DIR}/scripts/moh_docker_start.sh
+ADD scripts/ ${BASE_DIR}/scripts/
+RUN chmod +x /usr/bin/yq && chmod -R +x ${BASE_DIR}/scripts/
 
 CMD ${BASE_DIR}/scripts/moh_docker_start.sh
